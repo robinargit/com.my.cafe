@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="MyApp" packages="">
+
+    <Properties>
+        <Property name="log-path">D:/project/spring/com.my.cafe/logs/</Property>
+    </Properties>
+
+
+    <Appenders>
+
+        <!-- Console appender configuration -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+        </Console>
+
+        <!-- file appender configuration -->
+
+        <RollingFile name="DebuggerLogger" fileName="${log-path}com.my.cafe.${date:yyyy-MM-dd_hh-mm-ss}.log" filePattern="${log-path}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="ALL">
+            <AppenderRef ref="DebuggerLogger"/>
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+
+</Configuration>
